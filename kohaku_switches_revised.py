@@ -182,12 +182,8 @@ if __name__ == "__main__":
                     if r.status_code != 200:
                         b.write(f"\n\n400 response for\n\n{urls.url}\n") #write failed sites to failed_responses.txt
                         print(f"\n{bcolors.FAIL}400 status code returned for {urls.url}. \nScript was blocked or an error was returned and the request will probably not work.\nSkipping this site.\n\nWebsite will be written to '{results_dir}\\failed_responses.txt' as it still may have relevant information{bcolors.END}\n")
-                    else:
-                        with open("raw_response.txt", "w", encoding="utf-8") as f:
-                            f.write(r.text.lower()) #write successful GET data to raw_response.txt
-
-                        #with open("raw_response.txt", "r", encoding="utf-8") as text: #open raw data file in READ mode and parse with BeautifulSoup
-                        soup = BeautifulSoup(r.text, "html.parser")
+                    else: 
+                        soup = BeautifulSoup(r.text.lower(), "html.parser")
                             # Check for word in page
                         if search_word in soup.text.strip():
                                 for element in soup.find_all(string=True):
